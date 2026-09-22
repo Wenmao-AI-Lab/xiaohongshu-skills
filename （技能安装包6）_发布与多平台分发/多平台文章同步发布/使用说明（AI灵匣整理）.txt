@@ -1,0 +1,133 @@
+╔══════════════════════════════════════════════════════════════╗
+  小红书自媒体 SKILL · 技能使用说明
+  淘宝店：AI灵匣 —— 全套 AI 工作流技能包供应商
+╚══════════════════════════════════════════════════════════════╝
+
+【技能名称】多平台文章同步发布
+【所属分类】小红书自媒体 · 发布与多平台分发
+【技能标识】xhs-multiplatform-sync
+【依赖门槛】🟠 需自备环境 — 需自行安装开源命令行工具（npm install -g @wechatsync/cli）+ 浏览器扩展 + 本机 Token；不经过任何第三方付费账号。
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  一、这个技能是干什么的
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  一篇文章一键同步到 29+ 个平台（知乎、掘金、CSDN、头条、微博、小红书、B 站、公众号……），数据全在本机流转。
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  二、什么时候用它（触发场景）
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ① 一篇文章要发多个平台
+  ② 文章同步 / 一键发布
+  ③ 查看各平台登录状态
+  ④ 从网页提取文章内容
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  三、详细功能说明
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  # WechatSync
+
+  Publish and sync Markdown/HTML articles to 29+ content platforms via CLI.
+
+  ## Prerequisites
+
+  This skill requires external tools that the user must install themselves:
+
+  1. **CLI tool** (`@wechatsync/cli`): Open-source npm package ([source code](https://github.com/wechatsync/Wechatsync/tree/v2/packages/cli)). Install with `npm install -g @wechatsync/cli`
+  2. **Chrome extension**: Open-source browser extension ([source code](https://github.com/wechatsync/Wechatsync/tree/v2/packages/extension)). Install from [Chrome Web Store](https://chrome.google.com/webstore/detail/hchobocdmclopcbnibdnoafilagadion) or [download ZIP](https://www.wechatsync.com/#install)
+  3. **Token**: User-generated token set in extension settings. The token is created locally by the user and used only for localhost communication between CLI and extension. Set via `export WECHATSYNC_TOKEN="your-token"`
+  4. **Platform logins**: Log in to target platforms in browser (extension uses existing browser cookies, no credentials are stored or transmitted)
+
+  **Security model**: All data stays local. The CLI communicates with the Chrome extension over localhost. The extension calls platform APIs directly from the browser using existing login sessions. No third-party server involved. Full source code is open and auditable.
+
+  Before running any command, confirm the user has completed the prerequisites. Do not install packages on the user's behalf without explicit consent.
+
+  ## Commands
+
+  ### Sync
+
+  ```bash
+  wechatsync sync article.md -p juejin              # single platform
+  wechatsync sync article.md -p juejin,zhihu,csdn   # multiple platforms
+  wechatsync sync article.md -p juejin -t "Title"   # custom title
+  wechatsync sync article.md -p juejin --cover ./cover.png  # cover image
+  wechatsync sync article.md -p juejin --dry-run     # preview only
+  ```
+
+  ### Platforms & Auth
+
+  ```bash
+  wechatsync platforms          # list all platforms
+  wechatsync platforms --auth   # show login status
+  wechatsync auth zhihu         # check single platform
+  ```
+
+  ### Extract
+
+  ```bash
+  wechatsync extract              # extract from current browser page
+  wechatsync extract -o article.md  # save to file
+  ```
+
+  ## Platform IDs
+
+  zhihu, juejin, csdn, jianshu, toutiao, douyin, weibo, bilibili, xiaohongshu, baijiahao, weixin, yuque, douban, sohu, xueqiu, woshipm, dayu, yidian, 51cto, sohufocus, imooc, oschina, segmentfault, cnblogs, x, eastmoney, smzdm, netease, wordpress, typecho
+
+  ## Notes
+
+  - Images auto-uploaded to target platform CDN (PNG, JPG, GIF, WebP, SVG)
+  - Markdown title extracted from front matter `title` or first `# heading`
+  - Articles sync as **drafts** by default — user reviews before publishing
+
+  ## Workflow
+
+  1. Confirm prerequisites are installed (ask user if unsure)
+  2. Check login: `wechatsync platforms --auth`
+  3. Sync: `wechatsync sync <file> -p <platform1>,<platform2>`
+  4. Report results with draft URLs
+
+  Example prompts:
+  - "Sync this article to Juejin and Zhihu"
+  - "Which platforms am I logged into?"
+  - "Extract the article from browser and save it"
+  - "把这篇文章同步到掘金和知乎"
+
+  ---
+
+  > **本技能包由「淘宝店：AI灵匣」整理优化** —— 全套 AI 工作流技能包供应商
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  四、安装方式（三步 · 复制即用）
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  第 1 步｜复制技能文件夹
+        找到本技能所在文件夹「多平台文章同步发布」，
+        右键复制整个文件夹（或复制文件夹路径）。
+
+  第 2 步｜放进 AI 对话框
+        把文件夹（或路径）粘贴到对话框，
+        也可以直接把文件夹拖进输入框，和发图片一样。
+
+  第 3 步｜发送安装指令
+        把下面这句话复制发送：
+
+        【请解压这个技能包「多平台文章同步发布」，并安装到技能目录，
+        完成后告诉我，后续对话我会直接使用它。】
+
+  · 等 AI 回复「安装完成」即可正常使用。
+  · 多个技能一起装：把多个文件夹一起放进对话框，
+    再发送「请把上面这些技能包全部解压安装」。
+  · 安装后直接描述需求，AI 会自动调用本技能。
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  五、你会拿到什么
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  各平台同步后的草稿链接、发布结果清单、平台登录状态检查报告、提取出的 Markdown 文章。
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  六、依赖与门槛
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  🟠 需自备环境 — 需自行安装开源命令行工具（npm install -g @wechatsync/cli）+ 浏览器扩展 + 本机 Token；不经过任何第三方付费账号。
+
+╔══════════════════════════════════════════════════════════════╗
+  淘宝店：AI灵匣 —— 全套 AI 工作流技能包供应商
+  购买后遇到任何问题，可随时咨询客服
+╚══════════════════════════════════════════════════════════════╝
